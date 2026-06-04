@@ -49,7 +49,17 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void deleteCompany(Long id) {
-        companyRepository.deleteById(id);
+
+        Company company =
+                companyRepository.findById(id)
+                .orElse(null);
+
+        if (company != null) {
+
+            company.setStatus("Inactive");
+
+            companyRepository.save(company);
+        }
     }
 
     @Override
