@@ -5,7 +5,7 @@ import com.example.demo.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+//import java.util.List;
 
 @RestController
 @RequestMapping("/api/company")
@@ -21,8 +21,42 @@ public class CompanyController {
     }
 
     @GetMapping
-    public List<Company> getAllCompanies() {
-        return companyService.getAllCompanies();
+    public Object getAllCompanies(
+
+            @RequestParam(
+                    defaultValue = "0"
+            )
+            int page,
+
+            @RequestParam(
+                    defaultValue = "5"
+            )
+            int size,
+
+            @RequestParam(
+                    defaultValue = ""
+            )
+            String search,
+
+            @RequestParam(
+                    defaultValue = "id"
+            )
+            String sortBy,
+
+            @RequestParam(
+                    defaultValue = "asc"
+            )
+            String sortDir
+
+    ) {
+
+        return companyService.getAllCompanies(
+                page,
+                size,
+                search,
+                sortBy,
+                sortDir
+        );
     }
 
     @GetMapping("/{id}")

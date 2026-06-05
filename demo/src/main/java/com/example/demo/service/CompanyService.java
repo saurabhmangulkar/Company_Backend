@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import java.util.List;
+//import java.util.List;
+import org.springframework.data.domain.Page;
 
 import com.example.demo.entity.Company;
 
@@ -14,5 +15,11 @@ public interface CompanyService {
 
     Company getCompanyById(Long id);
 
-    List<Company> getAllCompanies();
+    Page<Company> getAllCompanies(
+            int page,
+            int size,
+            String search,
+            String sortBy,
+            String sortDir
+    );
 }

@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
 import java.time.LocalDateTime;
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Company;
 import com.example.demo.repository.CompanyRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -68,7 +72,45 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Company> getAllCompanies() {
-        return companyRepository.findAll();
+    public Page<Company> getAllCompanies(
+            int page,
+            int size,
+            String search,
+            String sortBy,
+            String sortDir
+    ) {
+
+        Sort sort =
+                sortDir.equalsIgnoreCase("desc")
+                        ? Sort.by(sortBy).descending()
+                        : Sort.by(sortBy).ascending();
+
+        Pageable pageable =
+                PageRequest.of(
+                        page,
+                        size,
+                        sort
+                );
+
+        if (
+                search != null &&
+                !search.isEmpty()
+        ) {
+
+        	return companyRepository
+        	        .findByNameContainingIgnoreCaseAndStatusNot(
+        	                search,
+        	                "Inactive",
+        	                pageable
+        	        );
+        }
+
+        return companyRepository.findByStatusNot(
+                "Inactive",
+                pageable
+        );
+        
+        
     }
+    
 }
