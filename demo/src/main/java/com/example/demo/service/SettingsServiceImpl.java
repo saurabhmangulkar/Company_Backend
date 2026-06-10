@@ -36,6 +36,18 @@ public class SettingsServiceImpl
                 .orElse(null);
     }
 
+    
+  
+    		@Override
+    		public Settings getByKey(String key) {
+
+    		    return settingsRepository
+    		            .findByKey(key)
+    		            .orElse(null);
+    		}
+    		
+
+    		
     @Override
     public Settings updateSettings(
             Long id,

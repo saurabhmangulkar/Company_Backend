@@ -30,6 +30,21 @@ public class SettingsController {
         return settingsService.getAllSettings();
     }
 
+    
+    
+    		@GetMapping("/key/{key}")
+    		public Settings getByKey(
+    		        @PathVariable String key) {
+
+    		    return settingsService
+    		            .getByKey(key);
+    		}
+    		
+
+
+    		
+
+    
     @GetMapping("/{id}")
     public Settings getSettingsById(
             @PathVariable Long id) {
@@ -55,4 +70,10 @@ public class SettingsController {
 
         return "Settings Deleted Successfully";
     }
+    
+  
+    		
+
+    
+    
 }

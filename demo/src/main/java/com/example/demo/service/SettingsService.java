@@ -15,4 +15,12 @@ public interface SettingsService {
     Settings updateSettings(Long id, Settings settings);
 
     void deleteSettings(Long id);
+    
+
+    		Settings getByKey(String key);
+    		
+
+    
+
+    
 }
